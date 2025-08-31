@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -16,22 +17,22 @@ export default function Home() {
           <div className="card">
             <h2>Financial Aid</h2>
             <p>Tuition, scholarships, deadlines, and forms.</p>
-            <a className="button" href="/financial-aid">Explore</a>
+            <Link className="button" href="/financial-aid">Explore</Link>
           </div>
           <div className="card">
             <h2>Graduate Programs</h2>
             <p>Masters and doctoral programs and admissions info.</p>
-            <a className="button" href="/graduate-programs">Explore</a>
+            <Link className="button" href="/graduate-programs">Explore</Link>
           </div>
           <div className="card">
             <h2>Undergraduate Programs</h2>
             <p>Majors, minors, and advising resources.</p>
-            <a className="button" href="/undergraduate-programs">Explore</a>
+            <Link className="button" href="/undergraduate-programs">Explore</Link>
           </div>
           <div className="card">
             <h2>Contact</h2>
             <p>Reach out to a department or support.</p>
-            <a className="button" href="/contact">Explore</a>
+            <Link className="button" href="/contact">Explore</Link>
           </div>
         </div>
       </section>
