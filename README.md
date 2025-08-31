@@ -1,7 +1,7 @@
 # SS JS QA — MVP App
 
 [![CI](https://github.com/wallacematthew/ss-js-qa/actions/workflows/ci.yml/badge.svg)](https://github.com/wallacematthew/ss-js-qa/actions/workflows/ci.yml)
-[![Netlify Status](https://api.netlify.com/api/v1/badges/your-site-id/deploy-status)](https://app.netlify.com/sites/ss-js-qa/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/c95cf48c-2949-404e-9b3d-569fbfe891bf/deploy-status)](https://app.netlify.com/projects/ss-js-qa/deploys)
 
 Minimal Vite JS app to validate SearchStax Vanilla JS UI kit and docs. Deployed via Netlify with Deploy Previews for PRs.
 
