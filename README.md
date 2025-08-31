@@ -31,7 +31,11 @@ Monorepo hosting minimal MVP apps to validate SearchStax UI kits across framewor
 
 Deploy now: [Deploy to Netlify](https://app.netlify.com/start/deploy?repository=https%3A%2F%2Fgithub.com%2Fwallacematthew%2Fss-js-qa)
 
-Live vanilla site: https://ss-js-qa.netlify.app
+Live sites
+- Vanilla: https://ss-js-qa.netlify.app
+- React: https://ss-react-qa.netlify.app/
+- Vue: https://ss-vue-qa.netlify.app/
+- Angular (placeholder app): https://ss-angular-qa.netlify.app/
 
 ## Contributing
 See `AGENTS.md` for structure, scripts, linting, tests, and PR guidelines.
