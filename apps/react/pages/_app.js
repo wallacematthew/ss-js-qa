@@ -1,17 +1,18 @@
 import '../styles.css';
+import Link from 'next/link';
 
 export default function App({ Component, pageProps }) {
   return (
     <>
       <header className="site-header">
         <nav className="nav">
-          <a className="brand" href="/">SS JS QA</a>
+          <Link className="brand" href="/">SS JS QA</Link>
           <div className="links">
-            <a href="/financial-aid">Financial Aid</a>
-            <a href="/graduate-programs">Graduate Programs</a>
-            <a href="/undergraduate-programs">Undergraduate Programs</a>
-            <a href="/contact">Contact</a>
-            <a href="/search">Search</a>
+            <Link href="/financial-aid">Financial Aid</Link>
+            <Link href="/graduate-programs">Graduate Programs</Link>
+            <Link href="/undergraduate-programs">Undergraduate Programs</Link>
+            <Link href="/contact">Contact</Link>
+            <Link href="/search">Search</Link>
           </div>
         </nav>
       </header>

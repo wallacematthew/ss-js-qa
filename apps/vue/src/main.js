@@ -1,11 +1,14 @@
 import { createApp } from 'vue';
 import App from './App.vue';
+import router from './router.js';
 import '../styles.css';
 
 export function mountApp(selector = '#app') {
   try {
     console.log('[vue] mounting app');
-    return createApp(App).mount(selector);
+    const app = createApp(App);
+    app.use(router);
+    return app.mount(selector);
   } catch (err) {
     console.error('[vue] mount error:', err);
     const el = document.querySelector(selector);

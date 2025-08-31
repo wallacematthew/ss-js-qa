@@ -39,7 +39,6 @@ jobs:
         run: pnpm install --frozen-lockfile=false
 
       - name: Format check
-        if: matrix.app == 'vanilla'
         run: pnpm run format:check
 
       - name: Lint (vanilla)
@@ -62,13 +61,13 @@ jobs:
         if: matrix.app == 'vanilla'
         run: pnpm run coverage:vanilla
 
-      - name: Test (react)
+      - name: Test (react with coverage)
         if: matrix.app == 'react'
-        run: pnpm -F @ss-qa/react test
+        run: pnpm -F @ss-qa/react run coverage
 
-      - name: Test (vue)
+      - name: Test (vue with coverage)
         if: matrix.app == 'vue'
-        run: pnpm -F @ss-qa/vue test
+        run: pnpm -F @ss-qa/vue run coverage
 
       - name: Test (angular)
         if: matrix.app == 'angular'
@@ -83,6 +82,22 @@ jobs:
         with:
           name: coverage
           path: apps/vanilla/coverage
+          if-no-files-found: ignore
+
+      - name: Upload coverage (react)
+        if: matrix.app == 'react' && always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-react
+          path: apps/react/coverage
+          if-no-files-found: ignore
+
+      - name: Upload coverage (vue)
+        if: matrix.app == 'vue' && always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-vue
+          path: apps/vue/coverage
           if-no-files-found: ignore
 
       - name: Upload dist (vanilla/vue/angular)
