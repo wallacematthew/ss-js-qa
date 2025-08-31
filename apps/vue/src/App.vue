@@ -1,0 +1,72 @@
+<template>
+  <header class="site-header">
+    <nav class="nav">
+      <a class="brand" href="#/">SS JS QA</a>
+      <div class="links">
+        <a v-for="n in nav" :key="n.href" :href="n.href">{{ n.label }}</a>
+      </div>
+    </nav>
+  </header>
+  <main class="container">
+    <section v-if="view === '/'">
+      <h1>Welcome (Vue)</h1>
+      <p class="lead">A minimal Vue app mirroring the vanilla demo.</p>
+      <div id="searchstax-placeholder" class="placeholder">Search UI kit mounts here later.</div>
+    </section>
+    <section v-else-if="view === '/financial-aid'"><h1>Financial Aid</h1><p>Tuition, scholarships, deadlines, and forms.</p></section>
+    <section v-else-if="view === '/graduate-programs'"><h1>Graduate Programs</h1><p>Masters and doctoral programs overview.</p></section>
+    <section v-else-if="view === '/undergraduate-programs'"><h1>Undergraduate Programs</h1><p>Majors, minors, and advising.</p></section>
+    <section v-else-if="view === '/contact'"><h1>Contact</h1><p>Reach out to departments or support.</p><div id="searchstax-placeholder-contact" class="placeholder">Search UI kit mounts here later.</div></section>
+    <section v-else-if="view === '/search'"><h1>Search</h1><p class="lead">This page is ready for the SearchStax UI kit.</p><div id="searchstax-root" class="placeholder">Mount search UI here.</div></section>
+    <section v-else>
+      <h1>Not Found</h1>
+      <a href="#/">Go home</a>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <small>Demo app for testing SearchStax UI kit integration.</small>
+  </footer>
+</template>
+
+<script setup>
+import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue';
+
+function getPath() {
+  const hash = window.location.hash || '#/';
+  try {
+    const url = new URL(hash.slice(1), window.location.origin);
+    return url.pathname || '/';
+  } catch {
+    return '/';
+  }
+}
+
+const path = ref(getPath());
+const nav = [
+  { href: '#/', label: 'Home' },
+  { href: '#/financial-aid', label: 'Financial Aid' },
+  { href: '#/graduate-programs', label: 'Graduate Programs' },
+  { href: '#/undergraduate-programs', label: 'Undergraduate Programs' },
+  { href: '#/contact', label: 'Contact' },
+  { href: '#/search', label: 'Search' },
+];
+const view = computed(() => path.value);
+
+function onHash() { path.value = getPath(); }
+onMounted(() => window.addEventListener('hashchange', onHash));
+onBeforeUnmount(() => window.removeEventListener('hashchange', onHash));
+
+const base = 'SS JS QA — Vue';
+const titles = {
+  '/': 'Home',
+  '/financial-aid': 'Financial Aid',
+  '/graduate-programs': 'Graduate Programs',
+  '/undergraduate-programs': 'Undergraduate Programs',
+  '/contact': 'Contact',
+  '/search': 'Search',
+};
+watch(path, (p) => {
+  document.title = `${base} | ${titles[p] || 'Not Found'}`;
+}, { immediate: true });
+</script>
+
