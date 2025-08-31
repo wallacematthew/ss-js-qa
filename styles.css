@@ -1,0 +1,6 @@
+:root { color-scheme: light dark; }
+html, body { margin: 0; padding: 0; }
+body { min-height: 100svh; display: grid; place-items: start center; }
+h1 { line-height: 1.2; }
+code { background: color-mix(in srgb, CanvasText 10%, transparent); padding: 0.1rem 0.25rem; border-radius: 4px; }
+
