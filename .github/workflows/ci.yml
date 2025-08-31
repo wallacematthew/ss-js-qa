@@ -50,6 +50,18 @@ jobs:
         if: matrix.app == 'vanilla'
         run: pnpm run coverage:vanilla
 
+      - name: Test (react)
+        if: matrix.app == 'react'
+        run: pnpm -F @ss-qa/react test
+
+      - name: Test (vue)
+        if: matrix.app == 'vue'
+        run: pnpm -F @ss-qa/vue test
+
+      - name: Test (angular)
+        if: matrix.app == 'angular'
+        run: pnpm -F @ss-qa/angular run test:ci
+
       - name: Build app
         run: pnpm -F @ss-qa/${{ matrix.app }} build
 

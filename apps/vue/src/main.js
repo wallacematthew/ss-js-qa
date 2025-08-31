@@ -1,8 +1,7 @@
 import { createApp, ref, computed } from 'vue';
+import '../styles.css';
 
-const routes = ['/', '/financial-aid', '/graduate-programs', '/undergraduate-programs', '/contact'];
-
-function getPath() {
+export function getPath() {
   const hash = window.location.hash || '#/';
   try {
     const url = new URL(hash.slice(1), window.location.origin);
@@ -28,28 +27,39 @@ const App = {
     return { nav, view };
   },
   template: `
-    <header style="border-bottom:1px solid #ccc;padding:12px">
-      <nav style="display:flex;gap:12px;flex-wrap:wrap">
-        <a v-for="n in nav" :key="n.href" :href="n.href">{{ n.label }}</a>
+    <header class="site-header">
+      <nav class="nav">
+        <a class="brand" href="#/">SS JS QA</a>
+        <div class="links">
+          <a v-for="n in nav" :key="n.href" :href="n.href">{{ n.label }}</a>
+        </div>
       </nav>
     </header>
-    <main style="max-width:960px;margin:0 auto;padding:16px">
+    <main class="container">
       <section v-if="view==='/'">
         <h1>Welcome (Vue)</h1>
-        <p>A minimal Vue app mirroring the vanilla demo.</p>
-        <div id="searchstax-placeholder" style="padding:16px;border:2px dashed #999;border-radius:8px">Search UI kit mounts here later.</div>
+        <p class="lead">A minimal Vue app mirroring the vanilla demo.</p>
+        <div id="searchstax-placeholder" class="placeholder">Search UI kit mounts here later.</div>
       </section>
       <section v-else-if="view==='/financial-aid'"><h1>Financial Aid</h1><p>Tuition, scholarships, deadlines, and forms.</p></section>
       <section v-else-if="view==='/graduate-programs'"><h1>Graduate Programs</h1><p>Masters and doctoral programs overview.</p></section>
       <section v-else-if="view==='/undergraduate-programs'"><h1>Undergraduate Programs</h1><p>Majors, minors, and advising.</p></section>
-      <section v-else-if="view==='/contact'"><h1>Contact</h1><p>Reach out to departments or support.</p><div id="searchstax-placeholder-contact" style="padding:16px;border:2px dashed #999;border-radius:8px">Search UI kit mounts here later.</div></section>
+      <section v-else-if="view==='/contact'"><h1>Contact</h1><p>Reach out to departments or support.</p><div id="searchstax-placeholder-contact" class="placeholder">Search UI kit mounts here later.</div></section>
       <section v-else>
         <h1>Not Found</h1>
         <a href="#/">Go home</a>
       </section>
     </main>
+    <footer class="site-footer">
+      <small>Demo app for testing SearchStax UI kit integration.</small>
+    </footer>
   `,
 };
 
-createApp(App).mount('#app');
+export function mountApp(selector = '#app') {
+  return createApp(App).mount(selector);
+}
 
+if (typeof window !== 'undefined') {
+  mountApp('#app');
+}
