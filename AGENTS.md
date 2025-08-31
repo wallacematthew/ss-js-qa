@@ -1,38 +1,35 @@
 # Repository Guidelines
 
 ## Project Structure & Module Organization
-- Source lives in `src/` (libraries, helpers) and executable scripts in `scripts/`.
-- Tests go in `tests/` with subfolders like `tests/unit/` and `tests/e2e/`.
-- Shared test data in `fixtures/` and non-code assets in `assets/`.
-- Config lives at the root (e.g., `.eslintrc.*`, `.prettierrc`, `tsconfig.json`, `vitest.config.ts`/`jest.config.js`).
+- App code in `src/` (entry: `src/main.js`).
+- Static HTML/CSS at project root (`index.html`, `styles.css`).
+- Tests in `tests/` (unit examples live here). 
+- Build output in `dist/` (generated). Netlify reads from `dist/`.
+- Config: `netlify.toml`, `.eslintrc.json`, `.prettierrc.json`, `.eslintignore`, `.prettierignore`.
 
 ## Build, Test, and Development Commands
-- `npm i`: installs dependencies.
-- `npm test`: runs the test suite once.
-- `npm run test:watch`: reruns tests on file changes.
-- `npm run coverage`: generates coverage report (e.g., `coverage/`).
-- `npm run lint` / `npm run format`: lints and formats code.
-- If missing, add these scripts to `package.json` and use `pnpm`/`yarn` equivalents if preferred.
+- `npm i`: install dependencies.
+- `npm run dev`: Vite dev server with HMR.
+- `npm run build`: production build to `dist/`.
+- `npm run preview`: serve the built app locally.
+- `npm test`: run Vitest once. `npm run test:watch` to watch. `npm run coverage` for report.
+- `npm run lint` / `npm run lint:fix`: ESLint check/fix. `npm run format` to apply Prettier.
 
 ## Coding Style & Naming Conventions
-- Use TypeScript when possible (`.ts`/`.tsx`); otherwise `.js` with JSDoc.
-- Indentation: 2 spaces; line width: 100–120 chars; semicolons required.
-- Naming: files `kebab-case.ts`; classes `PascalCase`; variables/functions `camelCase`.
-- Run Prettier for formatting and ESLint for quality. Example: `npm run lint && npm run format`.
+- JavaScript ESM (`type: module`). Indentation: 2 spaces; width: ~100; semicolons on; single quotes.
+- Files: `kebab-case.js`; functions/vars `camelCase`; classes `PascalCase`.
+- Keep modules small and pure; DOM-only in app entry or dedicated view files.
 
 ## Testing Guidelines
-- Framework: Vitest or Jest; prefer fast, isolated unit tests.
-- Test files: `*.test.ts` next to source or in `tests/**`. Example: `src/math/add.ts` → `tests/unit/math/add.test.ts`.
-- Aim for meaningful coverage (e.g., 80%+ by line and branch); avoid testing implementation details.
-- Use deterministic fixtures; avoid network or real filesystem in unit tests.
+- Framework: Vitest. Place tests as `*.test.js` in `tests/` or beside source.
+- Target behavior over implementation; use simple, deterministic inputs.
+- Coverage target: aim for 80%+ line/branch on core utils; exclude trivial glue.
 
 ## Commit & Pull Request Guidelines
-- Use Conventional Commits (e.g., `feat: add URL validator`, `fix: handle null inputs`).
-- Keep commits focused; include brief rationale in the body when non-obvious.
-- PRs must include: clear description, linked issues (`Closes #123`), test evidence (output or screenshots), and notes on breaking changes.
-- Keep CI green; run `npm test` and `npm run lint` locally before opening PRs.
+- Conventional Commits (e.g., `feat: add navbar`, `fix: handle null inputs`).
+- Keep PRs focused; include a clear description, linked issues (`Closes #123`), and screenshots for UI.
+- Ensure `npm run lint` and `npm test` are clean before opening.
 
-## Security & Configuration Tips
-- Never commit secrets; use `.env.local` and provide `.env.example`.
-- Validate user input and sanitize file paths/URLs.
-- Review dependency updates for risk; pin critical versions when needed.
+## Deployment (Netlify)
+- Netlify uses `netlify.toml`: build `npm run build`, publish `dist`, Node `20`.
+- Push to default branch to trigger deploy; use environment vars via Netlify UI (never commit secrets).
