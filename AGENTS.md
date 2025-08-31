@@ -34,5 +34,4 @@
 - Netlify uses `netlify.toml`: build `npm run build`, publish `dist`, Node `20`.
 - Push to default branch to trigger deploy; use environment vars via Netlify UI (never commit secrets).
 - Live site: https://ss-js-qa.netlify.app
-- Status badge: https://api.netlify.com/api/v1/badges/c95cf48c-2949-404e-9b3d-569fbfe891bf/deploy-status
 - Deploy previews: enabled on PRs; treat Netlify and CI checks as required before merge.
