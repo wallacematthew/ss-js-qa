@@ -11,8 +11,9 @@
 
 ## Build, Test, and Development Commands
 - Install: `pnpm install` (root).
-- Vanilla dev/build: `pnpm dev:vanilla`, `pnpm build:vanilla`, preview inside app.
-- Tests (vanilla): `pnpm test:vanilla`, coverage `pnpm coverage:vanilla`.
+- Vanilla dev/build/tests: `pnpm dev:vanilla`, `pnpm build:vanilla`, `pnpm test:vanilla`.
+- React dev/build: `pnpm dev:react`, `pnpm build:react`.
+- Vue dev/build: `pnpm dev:vue`, `pnpm build:vue`.
 - Lint/Format (root): `pnpm run lint`, `pnpm run format:check`.
 
 ## Coding Style & Naming Conventions

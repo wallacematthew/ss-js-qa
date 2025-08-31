@@ -16,6 +16,10 @@ permissions:
 jobs:
   build-test:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        app: [vanilla, react, vue]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -35,29 +39,40 @@ jobs:
         run: pnpm install --frozen-lockfile=false
 
       - name: Format check
+        if: matrix.app == 'vanilla'
         run: pnpm run format:check
 
       - name: Lint
+        if: matrix.app == 'vanilla'
         run: pnpm run lint
 
       - name: Test (vanilla, with coverage)
+        if: matrix.app == 'vanilla'
         run: pnpm run coverage:vanilla
 
-      - name: Build (vanilla)
-        run: pnpm run build:vanilla
+      - name: Build app
+        run: pnpm -F @ss-qa/${{ matrix.app }} build
 
-      - name: Upload coverage
-        if: always()
+      - name: Upload coverage (vanilla)
+        if: matrix.app == 'vanilla' && always()
         uses: actions/upload-artifact@v4
         with:
           name: coverage
-          path: coverage
+          path: apps/vanilla/coverage
           if-no-files-found: ignore
 
-      - name: Upload dist
-        if: always()
+      - name: Upload dist (vanilla/vue)
+        if: (matrix.app == 'vanilla' || matrix.app == 'vue') && always()
         uses: actions/upload-artifact@v4
         with:
-          name: dist
-          path: dist
+          name: dist-${{ matrix.app }}
+          path: apps/${{ matrix.app }}/dist
+          if-no-files-found: ignore
+
+      - name: Upload .next (react)
+        if: matrix.app == 'react' && always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: next-react
+          path: apps/react/.next
           if-no-files-found: ignore

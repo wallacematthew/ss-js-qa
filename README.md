@@ -7,6 +7,8 @@ Monorepo hosting minimal MVP apps to validate SearchStax UI kits across framewor
 - Vanilla dev: `pnpm dev:vanilla` → http://localhost:5173
 - Vanilla build: `pnpm build:vanilla` → outputs to `apps/vanilla/dist/`
 - Vanilla tests: `pnpm test:vanilla` / coverage: `pnpm coverage:vanilla`
+- React dev: `pnpm dev:react` (Next.js)
+- Vue dev: `pnpm dev:vue`
 
 ## Routes (Vanilla)
 - `#/` — Home (SearchStax mount placeholder)

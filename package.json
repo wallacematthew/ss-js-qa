@@ -12,6 +12,10 @@
     "build:vanilla": "pnpm -F @ss-qa/vanilla build",
     "test:vanilla": "pnpm -F @ss-qa/vanilla test",
     "coverage:vanilla": "pnpm -F @ss-qa/vanilla coverage",
+    "dev:react": "pnpm -F @ss-qa/react dev",
+    "build:react": "pnpm -F @ss-qa/react build",
+    "dev:vue": "pnpm -F @ss-qa/vue dev",
+    "build:vue": "pnpm -F @ss-qa/vue build",
     "build": "pnpm -r --filter @ss-qa/vanilla build",
     "test": "pnpm -r --filter @ss-qa/vanilla test"
   },
