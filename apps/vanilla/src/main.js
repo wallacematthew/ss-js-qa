@@ -3,6 +3,7 @@ import { FinancialAid } from './pages/financialAid.js';
 import { GraduatePrograms } from './pages/graduatePrograms.js';
 import { UndergraduatePrograms } from './pages/undergraduatePrograms.js';
 import { Contact } from './pages/contact.js';
+import { Search } from './pages/search.js';
 
 const routes = {
   '/': Home,
@@ -10,6 +11,7 @@ const routes = {
   '/graduate-programs': GraduatePrograms,
   '/undergraduate-programs': UndergraduatePrograms,
   '/contact': Contact,
+  '/search': Search,
 };
 
 const titles = {
@@ -18,6 +20,7 @@ const titles = {
   '/graduate-programs': 'Graduate Programs',
   '/undergraduate-programs': 'Undergraduate Programs',
   '/contact': 'Contact',
+  '/search': 'Search',
 };
 
 function getPath() {

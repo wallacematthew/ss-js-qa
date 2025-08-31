@@ -20,6 +20,7 @@ const App = {
       { href: '#/graduate-programs', label: 'Graduate Programs' },
       { href: '#/undergraduate-programs', label: 'Undergraduate Programs' },
       { href: '#/contact', label: 'Contact' },
+      { href: '#/search', label: 'Search' },
     ];
     const view = computed(() => path.value);
     const onHash = () => (path.value = getPath());
@@ -31,6 +32,7 @@ const App = {
       '/graduate-programs': 'Graduate Programs',
       '/undergraduate-programs': 'Undergraduate Programs',
       '/contact': 'Contact',
+      '/search': 'Search',
     };
     watch(path, (p) => {
       document.title = `${base} | ${titles[p] || 'Not Found'}`;
@@ -56,6 +58,7 @@ const App = {
       <section v-else-if="view==='/graduate-programs'"><h1>Graduate Programs</h1><p>Masters and doctoral programs overview.</p></section>
       <section v-else-if="view==='/undergraduate-programs'"><h1>Undergraduate Programs</h1><p>Majors, minors, and advising.</p></section>
       <section v-else-if="view==='/contact'"><h1>Contact</h1><p>Reach out to departments or support.</p><div id="searchstax-placeholder-contact" class="placeholder">Search UI kit mounts here later.</div></section>
+      <section v-else-if="view==='/search'"><h1>Search</h1><p class="lead">This page is ready for the SearchStax UI kit.</p><div id="searchstax-root" class="placeholder">Mount search UI here.</div></section>
       <section v-else>
         <h1>Not Found</h1>
         <a href="#/">Go home</a>

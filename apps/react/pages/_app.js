@@ -11,6 +11,7 @@ export default function App({ Component, pageProps }) {
             <a href="/graduate-programs">Graduate Programs</a>
             <a href="/undergraduate-programs">Undergraduate Programs</a>
             <a href="/contact">Contact</a>
+            <a href="/search">Search</a>
           </div>
         </nav>
       </header>
