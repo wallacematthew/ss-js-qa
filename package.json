@@ -14,8 +14,13 @@
     "coverage:vanilla": "pnpm -F @ss-qa/vanilla coverage",
     "dev:react": "pnpm -F @ss-qa/react dev",
     "build:react": "pnpm -F @ss-qa/react build",
+    "test:react": "pnpm -F @ss-qa/react test",
     "dev:vue": "pnpm -F @ss-qa/vue dev",
     "build:vue": "pnpm -F @ss-qa/vue build",
+    "test:vue": "pnpm -F @ss-qa/vue test",
+    "dev:angular": "pnpm -F @ss-qa/angular dev",
+    "build:angular": "pnpm -F @ss-qa/angular build",
+    "test:angular": "pnpm -F @ss-qa/angular run test:ci",
     "build": "pnpm -r --filter @ss-qa/vanilla build",
     "test": "pnpm -r --filter @ss-qa/vanilla test"
   },
