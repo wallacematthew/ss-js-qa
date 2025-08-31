@@ -27,7 +27,7 @@ Monorepo hosting minimal MVP apps to validate SearchStax UI kits across framewor
 - For vanilla site: set Base directory to `apps/vanilla`.
 - Build command: `npm run build` (Netlify runs in app base).
 - Publish directory: `dist`
-- Node: `20` (set in app `netlify.toml`)
+- Node: `20` (set in site UI)
 
 Deploy now: [Deploy to Netlify](https://app.netlify.com/start/deploy?repository=https%3A%2F%2Fgithub.com%2Fwallacematthew%2Fss-js-qa)
 

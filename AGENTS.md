@@ -33,9 +33,9 @@
 - CI must pass (format, lint, tests, build) before merge.
 
 ## Deployment (Netlify)
-- Each app has a `netlify.toml` in its base directory.
-- Vanilla: Base `apps/vanilla`, build `npm run build`, publish `dist`, Node `20`.
-- React: Base `apps/react`, build `npm run build`, publish `.next`, Next plugin enabled.
-- Vue: Base `apps/vue`, build `npm run build`, publish `dist`.
-- Angular: Base `apps/angular`, build `npm run build`, publish `dist/ss-angular-qa`.
+- Configure each site in the Netlify UI (no root config file):
+  - Vanilla: Base `apps/vanilla`, build `npm run build`, publish `dist`, Node `20`.
+  - React: Base `apps/react`, build `npm run build`, publish `.next`, enable Next.js plugin.
+  - Vue: Base `apps/vue`, build `npm run build`, publish `dist`.
+  - Angular: Base `apps/angular`, build `npm run build`, publish `dist/ss-angular-qa`.
 - Push to `main` to trigger deploys; enable Deploy Previews for PRs.
