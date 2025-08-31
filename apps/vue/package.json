@@ -7,6 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "lint": "eslint . --ext .js,.vue",
+    "lint:fix": "eslint . --ext .js,.vue --fix",
     "test": "vitest run",
     "test:watch": "vitest",
     "coverage": "vitest run --coverage"
@@ -18,6 +20,9 @@
     "vite": "^5.4.0",
     "@vitejs/plugin-vue": "^5.1.2",
     "vitest": "^2.0.5",
-    "@vitest/coverage-v8": "^2.0.5"
+    "@vitest/coverage-v8": "^2.0.5",
+    "eslint": "^8.57.0",
+    "eslint-plugin-vue": "^9.28.0",
+    "vue-eslint-parser": "^9.4.3"
   }
 }

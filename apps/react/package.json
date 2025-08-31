@@ -7,6 +7,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "test": "vitest run",
     "test:watch": "vitest"
   },
@@ -17,6 +19,8 @@
   },
   "devDependencies": {
     "vitest": "^2.0.5",
-    "@testing-library/react": "^16.0.0"
+    "@testing-library/react": "^16.0.0",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^14.2.5"
   }
 }
