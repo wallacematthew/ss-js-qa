@@ -12,6 +12,14 @@ const routes = {
   '/contact': Contact,
 };
 
+const titles = {
+  '/': 'Home',
+  '/financial-aid': 'Financial Aid',
+  '/graduate-programs': 'Graduate Programs',
+  '/undergraduate-programs': 'Undergraduate Programs',
+  '/contact': 'Contact',
+};
+
 function getPath() {
   const hash = window.location.hash || '#/';
   try {
@@ -31,6 +39,9 @@ function handleRoute() {
   const path = getPath();
   const Component = routes[path] || NotFound;
   render(Component);
+  const base = 'SS JS QA — Vanilla';
+  const suffix = titles[path] || 'Not Found';
+  document.title = `${base} | ${suffix}`;
 }
 
 function NotFound() {

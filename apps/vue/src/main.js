@@ -1,4 +1,4 @@
-import { createApp, ref, computed } from 'vue';
+import { createApp, ref, computed, watch } from 'vue';
 import '../styles.css';
 
 export function getPath() {
@@ -24,6 +24,17 @@ const App = {
     const view = computed(() => path.value);
     const onHash = () => (path.value = getPath());
     window.addEventListener('hashchange', onHash);
+    const base = 'SS JS QA — Vue';
+    const titles = {
+      '/': 'Home',
+      '/financial-aid': 'Financial Aid',
+      '/graduate-programs': 'Graduate Programs',
+      '/undergraduate-programs': 'Undergraduate Programs',
+      '/contact': 'Contact',
+    };
+    watch(path, (p) => {
+      document.title = `${base} | ${titles[p] || 'Not Found'}`;
+    }, { immediate: true });
     return { nav, view };
   },
   template: `

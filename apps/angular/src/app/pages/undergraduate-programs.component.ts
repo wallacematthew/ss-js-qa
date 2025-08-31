@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-undergraduate-programs',
@@ -8,5 +9,9 @@ import { Component } from '@angular/core';
     <p class="lead">Majors, minors, and advising resources.</p>
   `,
 })
-export class UndergraduateProgramsComponent {}
-
+export class UndergraduateProgramsComponent implements OnInit {
+  constructor(private title: Title) {}
+  ngOnInit(): void {
+    this.title.setTitle('SS JS QA — Angular | Undergraduate Programs');
+  }
+}

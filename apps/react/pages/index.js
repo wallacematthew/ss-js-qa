@@ -1,6 +1,11 @@
+import Head from 'next/head';
+
 export default function Home() {
   return (
     <>
+      <Head>
+        <title>SS JS QA — React | Home</title>
+      </Head>
       <section>
         <h1>Welcome (React/Next)</h1>
         <p className="lead">A minimal Next.js app mirroring the vanilla demo.</p>

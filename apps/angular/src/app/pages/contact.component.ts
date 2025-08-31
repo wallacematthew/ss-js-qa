@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-contact',
@@ -14,5 +15,9 @@ import { Component } from '@angular/core';
     </section>
   `,
 })
-export class ContactComponent {}
-
+export class ContactComponent implements OnInit {
+  constructor(private title: Title) {}
+  ngOnInit(): void {
+    this.title.setTitle('SS JS QA — Angular | Contact');
+  }
+}
