@@ -19,7 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        app: [vanilla, react, vue]
+        app: [vanilla, react, vue, angular]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -61,8 +61,8 @@ jobs:
           path: apps/vanilla/coverage
           if-no-files-found: ignore
 
-      - name: Upload dist (vanilla/vue)
-        if: (matrix.app == 'vanilla' || matrix.app == 'vue') && always()
+      - name: Upload dist (vanilla/vue/angular)
+        if: (matrix.app == 'vanilla' || matrix.app == 'vue' || matrix.app == 'angular') && always()
         uses: actions/upload-artifact@v4
         with:
           name: dist-${{ matrix.app }}
