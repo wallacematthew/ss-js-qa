@@ -7,4 +7,3 @@ describe('sum', () => {
     expect(sum(-1, 1)).toBe(0);
   });
 });
-

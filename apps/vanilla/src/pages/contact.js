@@ -20,4 +20,3 @@ export function Contact() {
     </section>
   `;
 }
-

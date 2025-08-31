@@ -4,22 +4,19 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "lint": "eslint . --ext .js,.mjs,.cjs",
-    "lint:fix": "eslint . --ext .js,.mjs,.cjs --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "coverage": "vitest run --coverage"
+    "lint": "eslint . --ext .js,.mjs,.cjs",
+    "lint:fix": "eslint . --ext .js,.mjs,.cjs --fix",
+    "dev:vanilla": "pnpm -F @ss-qa/vanilla dev",
+    "build:vanilla": "pnpm -F @ss-qa/vanilla build",
+    "test:vanilla": "pnpm -F @ss-qa/vanilla test",
+    "coverage:vanilla": "pnpm -F @ss-qa/vanilla coverage",
+    "build": "pnpm -r --filter @ss-qa/vanilla build",
+    "test": "pnpm -r --filter @ss-qa/vanilla test"
   },
   "devDependencies": {
     "eslint": "^8.57.0",
-    "prettier": "^3.3.3",
-    "vite": "^5.4.0",
-    "vitest": "^2.0.5",
-    "@vitest/coverage-v8": "^2.0.5"
+    "prettier": "^3.3.3"
   }
 }

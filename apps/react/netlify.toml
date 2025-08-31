@@ -1,0 +1,7 @@
+[build]
+  command = "pnpm -F @ss-qa/react build"
+  publish = ".next"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+

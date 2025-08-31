@@ -1,19 +1,19 @@
 # Repository Guidelines
 
 ## Project Structure & Module Organization
-- App code in `src/` (entry: `src/main.js`).
-- Static HTML/CSS at project root (`index.html`, `styles.css`).
-- Tests in `tests/` (unit examples live here). 
-- Build output in `dist/` (generated). Netlify reads from `dist/`.
-- Config: `netlify.toml`, `.eslintrc.json`, `.prettierrc.json`, `.eslintignore`, `.prettierignore`.
+- Monorepo via pnpm workspaces.
+- Apps:
+  - `apps/vanilla` — Vite + JS (entry: `src/main.js`, build → `dist/`).
+  - `apps/react` — Next.js skeleton (`pages/` routes).
+  - `apps/vue` — Vite + Vue skeleton (`src/main.js`).
+  - `apps/angular` — placeholder (to be scaffolded).
+- Root config: `.eslintrc.json`, `.prettierrc.json`, `.eslintignore`, `.prettierignore`, `pnpm-workspace.yaml`.
 
 ## Build, Test, and Development Commands
-- `npm i`: install dependencies.
-- `npm run dev`: Vite dev server with HMR.
-- `npm run build`: production build to `dist/`.
-- `npm run preview`: serve the built app locally.
-- `npm test`: run Vitest once. `npm run test:watch` to watch. `npm run coverage` for report.
-- `npm run lint` / `npm run lint:fix`: ESLint check/fix. `npm run format` to apply Prettier.
+- Install: `pnpm install` (root).
+- Vanilla dev/build: `pnpm dev:vanilla`, `pnpm build:vanilla`, preview inside app.
+- Tests (vanilla): `pnpm test:vanilla`, coverage `pnpm coverage:vanilla`.
+- Lint/Format (root): `pnpm run lint`, `pnpm run format:check`.
 
 ## Coding Style & Naming Conventions
 - JavaScript ESM (`type: module`). Indentation: 2 spaces; width: ~100; semicolons on; single quotes.
@@ -31,7 +31,6 @@
 - Ensure `npm run lint` and `npm test` are clean before opening.
 
 ## Deployment (Netlify)
-- Netlify uses `netlify.toml`: build `npm run build`, publish `dist`, Node `20`.
-- Push to default branch to trigger deploy; use environment vars via Netlify UI (never commit secrets).
-- Live site: https://ss-js-qa.netlify.app
-- Deploy previews: enabled on PRs; treat Netlify and CI checks as required before merge.
+- Each app has its own `netlify.toml` under its base dir.
+- Vanilla site: Base `apps/vanilla`, build `npm run build`, publish `dist`, Node `20`.
+- Push to `main` to trigger deploy; enable Deploy Previews on PRs.
