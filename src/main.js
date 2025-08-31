@@ -1,8 +1,45 @@
-document.querySelector('#app').innerHTML = `
-  <main style="padding:2rem; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji";">
-    <h1>Hello, Netlify + Vite!</h1>
-    <p>Deployed from ss-js-qa MVP. Edit <code>src/main.js</code> and save to live-reload.</p>
-    <p><a href="https://vitejs.dev/" target="_blank" rel="noreferrer">Vite docs</a></p>
-  </main>
-`;
+import { Home } from './pages/home.js';
+import { FinancialAid } from './pages/financialAid.js';
+import { GraduatePrograms } from './pages/graduatePrograms.js';
+import { UndergraduatePrograms } from './pages/undergraduatePrograms.js';
+import { Contact } from './pages/contact.js';
 
+const routes = {
+  '/': Home,
+  '/financial-aid': FinancialAid,
+  '/graduate-programs': GraduatePrograms,
+  '/undergraduate-programs': UndergraduatePrograms,
+  '/contact': Contact,
+};
+
+function getPath() {
+  const hash = window.location.hash || '#/';
+  try {
+    const url = new URL(hash.slice(1), window.location.origin);
+    return url.pathname || '/';
+  } catch (_) {
+    return '/';
+  }
+}
+
+function render(Component) {
+  const app = document.querySelector('#app');
+  app.innerHTML = Component();
+}
+
+function handleRoute() {
+  const path = getPath();
+  const Component = routes[path] || NotFound;
+  render(Component);
+}
+
+function NotFound() {
+  return `
+    <h1>Page Not Found</h1>
+    <p class="lead">The page you requested does not exist.</p>
+    <p><a href="#/">Go back home</a></p>
+  `;
+}
+
+window.addEventListener('hashchange', handleRoute);
+window.addEventListener('DOMContentLoaded', handleRoute);
