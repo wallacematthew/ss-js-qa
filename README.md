@@ -5,12 +5,11 @@
 Monorepo hosting minimal MVP apps to validate SearchStax UI kits across frameworks.
 
 ## Quick Start
-- Install (root): `pnpm install`
-- Vanilla dev: `pnpm dev:vanilla` → http://localhost:5173
-- Vanilla build: `pnpm build:vanilla` → outputs to `apps/vanilla/dist/`
-- Vanilla tests: `pnpm test:vanilla` / coverage: `pnpm coverage:vanilla`
-- React dev: `pnpm dev:react` (Next.js)
-- Vue dev: `pnpm dev:vue`
+- Use Node 20
+- Vanilla: `cd apps/vanilla && npm install && npm run dev` → http://localhost:5173
+- React: `cd apps/react && npm install && npm run dev`
+- Vue: `cd apps/vue && npm install && npm run dev`
+- Angular: `cd apps/angular && npm install && npm run dev`
 
 ## Routes (Vanilla)
 - `#/` — Home (SearchStax mount placeholder)

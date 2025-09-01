@@ -1,19 +1,21 @@
-# Angular App (Angular 18)
+# React App (Next.js)
 
 ## Run Locally
 - Node 20
 - `npm install`
-- `npm run dev` (or `npx ng serve`) → http://localhost:4200/
+- `npm run dev`
 
-## Build
-- `npm run build` → outputs to `dist/ss-angular-qa/browser`
+## Build & Start
+- `npm run build`
+- `npm start`
 
-## Routes
+## Pages
 - `/` Home, `/financial-aid`, `/graduate-programs`, `/undergraduate-programs`, `/contact`, `/search`
 - Search mount: `#searchstax-root` on `/search`
 
 ## Netlify
-- Base: `apps/angular`
+- Base: `apps/react`
 - Build: `npm run build`
-- Publish: `dist/ss-angular-qa/browser`
+- Publish: `.next`
+- Plugin: `@netlify/plugin-nextjs`
 - Node: 20
