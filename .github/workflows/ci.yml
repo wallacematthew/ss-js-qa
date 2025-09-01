@@ -30,21 +30,11 @@ jobs:
           node-version: 20
           cache: 'pnpm'
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
-          run_install: false
+      - name: Install pnpm globally
+        run: npm i -g pnpm@9
 
-      - name: Ensure pnpm available
-        shell: bash
-        run: |
-          set -e
-          if ! command -v pnpm >/dev/null 2>&1; then
-            echo "pnpm not found in PATH; installing via npm..."
-            npm i -g pnpm@9
-          fi
-          pnpm --version
+      - name: Check pnpm
+        run: pnpm --version
 
       - name: Install
         run: pnpm install --frozen-lockfile=false
