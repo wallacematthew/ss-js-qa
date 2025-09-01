@@ -1,5 +1,7 @@
 # SS JS QA — MVP Monorepo
 
+[![CI](https://github.com/wallacematthew/ss-js-qa/actions/workflows/ci.yml/badge.svg)](https://github.com/wallacematthew/ss-js-qa/actions/workflows/ci.yml)
+
 Monorepo hosting minimal MVP apps to validate SearchStax UI kits across frameworks.
 
 ## Quick Start
