@@ -48,8 +48,8 @@ jobs:
             npm install
           fi
 
-      - name: Format check
-        run: npm run format:check
+      - name: Format check (app scope)
+        run: node ./node_modules/prettier/bin/prettier.cjs --check "apps/${{ matrix.app }}"
 
       - name: Lint (vanilla)
         if: matrix.app == 'vanilla'
