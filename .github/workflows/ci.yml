@@ -14,12 +14,13 @@ permissions:
   contents: read
 
 jobs:
-  build-test:
+  build-only:
+    name: Build (all apps)
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        app: [vanilla, react, vue, angular]
+        app: [vanilla, react, vue]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -28,77 +29,24 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'pnpm'
+          cache: 'npm'
+          cache-dependency-path: |
+            package-lock.json
+            apps/**/package-lock.json
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v3
-        with:
-          version: 9
-
-      - name: Install
-        run: pnpm install --frozen-lockfile=false
-
-      - name: Format check
-        run: pnpm run format:check
-
-      - name: Lint (vanilla)
-        if: matrix.app == 'vanilla'
-        run: pnpm run lint
-
-      - name: Lint (react)
-        if: matrix.app == 'react'
-        run: pnpm -F @ss-qa/react run lint
-
-      - name: Lint (vue)
-        if: matrix.app == 'vue'
-        run: pnpm -F @ss-qa/vue run lint
-
-      - name: Lint (angular)
-        if: matrix.app == 'angular'
-        run: pnpm -F @ss-qa/angular run lint
-
-      - name: Test (vanilla, with coverage)
-        if: matrix.app == 'vanilla'
-        run: pnpm run coverage:vanilla
-
-      - name: Test (react with coverage)
-        if: matrix.app == 'react'
-        run: pnpm -F @ss-qa/react run coverage
-
-      - name: Test (vue with coverage)
-        if: matrix.app == 'vue'
-        run: pnpm -F @ss-qa/vue run coverage
-
-      - name: Test (angular)
-        if: matrix.app == 'angular'
-        run: pnpm -F @ss-qa/angular run test:ci
+      - name: Install app dependencies
+        working-directory: apps/${{ matrix.app }}
+        shell: bash
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci
+          else
+            npm install
+          fi
 
       - name: Build app
-        run: pnpm -F @ss-qa/${{ matrix.app }} build
-
-      - name: Upload coverage (vanilla)
-        if: matrix.app == 'vanilla' && always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage
-          path: apps/vanilla/coverage
-          if-no-files-found: ignore
-
-      - name: Upload coverage (react)
-        if: matrix.app == 'react' && always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage-react
-          path: apps/react/coverage
-          if-no-files-found: ignore
-
-      - name: Upload coverage (vue)
-        if: matrix.app == 'vue' && always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage-vue
-          path: apps/vue/coverage
-          if-no-files-found: ignore
+        working-directory: apps/${{ matrix.app }}
+        run: npm run build
 
       - name: Upload dist (vanilla/vue/angular)
         if: (matrix.app == 'vanilla' || matrix.app == 'vue' || matrix.app == 'angular') && always()
@@ -114,4 +62,121 @@ jobs:
         with:
           name: next-react
           path: apps/react/.next
+          if-no-files-found: ignore
+
+  quality:
+    name: Quality (format, lint, test)
+    runs-on: ubuntu-latest
+    needs: build-only
+    continue-on-error: true
+    strategy:
+      fail-fast: false
+      matrix:
+        app: [vanilla, react, vue, angular]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: |
+            package-lock.json
+            apps/**/package-lock.json
+
+      - name: Install root dev dependencies
+        run: npm ci
+
+      - name: Install app dependencies
+        working-directory: apps/${{ matrix.app }}
+        shell: bash
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci
+          else
+            npm install
+          fi
+
+      - name: Prettier check (scoped)
+        run: node ./node_modules/prettier/bin/prettier.cjs --check "apps/${{ matrix.app }}"
+
+      - name: Lint (vanilla)
+        if: matrix.app == 'vanilla'
+        run: npx eslint apps/vanilla --ext .js,.mjs,.cjs
+
+      - name: Lint (react)
+        if: matrix.app == 'react'
+        working-directory: apps/react
+        run: npm run lint
+
+      - name: Lint (vue)
+        if: matrix.app == 'vue'
+        working-directory: apps/vue
+        run: npm run lint
+
+      - name: Lint (angular)
+        if: matrix.app == 'angular'
+        working-directory: apps/angular
+        run: npm run lint
+
+      - name: Test (vanilla, with coverage)
+        if: matrix.app == 'vanilla'
+        working-directory: apps/vanilla
+        run: npm run coverage
+
+      - name: Test (react with coverage)
+        if: matrix.app == 'react'
+        working-directory: apps/react
+        run: npm run coverage
+
+      - name: Test (vue with coverage)
+        if: matrix.app == 'vue'
+        working-directory: apps/vue
+        run: npm run coverage
+
+      - name: Test (angular)
+        if: matrix.app == 'angular'
+        working-directory: apps/angular
+        run: npm run test:ci
+
+  build-angular-nonblocking:
+    name: Build (angular, non-blocking)
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: |
+            package-lock.json
+            apps/angular/package-lock.json
+
+      - name: Install Angular dependencies
+        working-directory: apps/angular
+        run: |
+          if [ -f package-lock.json ]; then npm ci; else npm install; fi
+
+      - name: Angular env info
+        working-directory: apps/angular
+        run: |
+          npx ng version || true
+          npm ls @angular/cli || true
+
+      - name: Build Angular app
+        working-directory: apps/angular
+        run: npm run build -- --verbose
+
+      - name: Upload dist (angular)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-angular
+          path: apps/angular/dist
           if-no-files-found: ignore

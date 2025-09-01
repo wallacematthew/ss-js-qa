@@ -1,5 +1,7 @@
 # SS JS QA — MVP Monorepo
 
+[![CI](https://github.com/wallacematthew/ss-js-qa/actions/workflows/ci.yml/badge.svg)](https://github.com/wallacematthew/ss-js-qa/actions/workflows/ci.yml)
+
 Monorepo hosting minimal MVP apps to validate SearchStax UI kits across frameworks.
 
 ## Quick Start
@@ -39,3 +41,13 @@ Live sites
 
 ## Contributing
 See `AGENTS.md` for structure, scripts, linting, tests, and PR guidelines.
+
+## PR & Deploy Previews
+- Typical flow: create a branch, push, open a PR to `main`.
+- CI: runs builds for all apps; quality checks (format/lint/tests) run but are non‑blocking.
+- Deploy Previews: Netlify posts a preview link per app on every PR:
+  - ss-js-qa (vanilla)
+  - ss-react-qa (Next.js)
+  - ss-vue-qa (Vue)
+  - ss-angular-qa (Angular)
+- Merge policy: no branch protection required; feel free to merge once you’re satisfied with the previews.
