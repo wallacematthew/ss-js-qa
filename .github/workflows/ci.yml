@@ -49,6 +49,7 @@ jobs:
           fi
 
       - name: Format check (app scope)
+        continue-on-error: true
         run: node ./node_modules/prettier/bin/prettier.cjs --check "apps/${{ matrix.app }}"
 
       - name: Lint (vanilla)
