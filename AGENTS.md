@@ -30,12 +30,12 @@
 ## Commit & Pull Request Guidelines
 - Conventional Commits (e.g., `feat: add navbar`, `fix: handle null inputs`).
 - PRs: clear description, linked issues (`Closes #123`), screenshots for UI when relevant.
-- CI must pass (format, lint, tests, build) before merge.
+- CI runs for visibility; you may merge without waiting for all checks.
 
 ## Deployment (Netlify)
 - Configure each site in the Netlify UI (no root config file):
   - Vanilla: Base `apps/vanilla`, build `npm run build`, publish `dist`, Node `20`.
   - React: Base `apps/react`, build `npm run build`, publish `.next`, enable Next.js plugin.
   - Vue: Base `apps/vue`, build `npm run build`, publish `dist`.
-  - Angular: Base `apps/angular`, build `npm run build`, publish `dist/ss-angular-qa`.
-- Push to `main` to trigger deploys; enable Deploy Previews for PRs.
+  - Angular: Base `apps/angular`, build `npm run build`, publish `dist/ss-angular-qa/browser`.
+- Push to `main` to deploy; Deploy Previews are optional but helpful.

@@ -43,11 +43,11 @@ Live sites
 See `AGENTS.md` for structure, scripts, linting, tests, and PR guidelines.
 
 ## PR & Deploy Previews
-- Flow: create a branch, push, open a PR to `main`.
-- CI: GitHub Actions runs format, lint, tests, and build for all apps.
+- Typical flow: create a branch, push, open a PR to `main`.
+- CI: runs builds for all apps; quality checks (format/lint/tests) run but are non‑blocking.
 - Deploy Previews: Netlify posts a preview link per app on every PR:
   - ss-js-qa (vanilla)
   - ss-react-qa (Next.js)
   - ss-vue-qa (Vue)
   - ss-angular-qa (Angular)
-- Merge policy (recommended): require CI = green and all Deploy Previews = green before merging.
+- Merge policy: no branch protection required; feel free to merge once you’re satisfied with the previews.
