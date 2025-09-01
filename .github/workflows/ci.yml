@@ -54,6 +54,7 @@ jobs:
 
       - name: Lint (vanilla)
         if: matrix.app == 'vanilla'
+        working-directory: apps/vanilla
         run: npm run lint
 
       - name: Lint (react)
