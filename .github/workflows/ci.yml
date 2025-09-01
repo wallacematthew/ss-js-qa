@@ -54,8 +54,7 @@ jobs:
 
       - name: Lint (vanilla)
         if: matrix.app == 'vanilla'
-        working-directory: apps/vanilla
-        run: npm run lint
+        run: npx eslint apps/vanilla --ext .js,.mjs,.cjs
 
       - name: Lint (react)
         if: matrix.app == 'react'
