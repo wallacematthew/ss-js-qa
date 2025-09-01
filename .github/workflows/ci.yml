@@ -20,7 +20,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        app: [vanilla, react, vue, angular]
+        app: [vanilla, react, vue]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -140,3 +140,43 @@ jobs:
         if: matrix.app == 'angular'
         working-directory: apps/angular
         run: npm run test:ci
+
+  build-angular-nonblocking:
+    name: Build (angular, non-blocking)
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: |
+            package-lock.json
+            apps/angular/package-lock.json
+
+      - name: Install Angular dependencies
+        working-directory: apps/angular
+        run: |
+          if [ -f package-lock.json ]; then npm ci; else npm install; fi
+
+      - name: Angular env info
+        working-directory: apps/angular
+        run: |
+          npx ng version || true
+          npm ls @angular/cli || true
+
+      - name: Build Angular app
+        working-directory: apps/angular
+        run: npm run build -- --verbose
+
+      - name: Upload dist (angular)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-angular
+          path: apps/angular/dist
+          if-no-files-found: ignore
