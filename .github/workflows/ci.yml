@@ -28,64 +28,63 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'pnpm'
+          cache: 'npm'
+          cache-dependency-path: |
+            package-lock.json
+            apps/**/package-lock.json
 
-      - name: Setup pnpm (action)
-        uses: pnpm/action-setup@v3
-        with:
-          version: 9
+      - name: Install root dev dependencies
+        run: npm ci
 
-      - name: Ensure pnpm available
-        shell: bash
-        run: |
-          set -e
-          if ! command -v pnpm >/dev/null 2>&1; then
-            echo "pnpm not found after action setup; installing globally..."
-            npm i -g pnpm@9
-          fi
-          echo "pnpm path: $(command -v pnpm)"
-          pnpm --version
-
-      - name: Install
-        run: pnpm install --frozen-lockfile=false
+      - name: Install app dependencies
+        working-directory: apps/${{ matrix.app }}
+        run: npm ci
 
       - name: Format check
-        run: pnpm run format:check
+        run: npm run format:check
 
       - name: Lint (vanilla)
         if: matrix.app == 'vanilla'
-        run: pnpm run lint
+        run: npm run lint
 
       - name: Lint (react)
         if: matrix.app == 'react'
-        run: pnpm -F @ss-qa/react run lint
+        working-directory: apps/react
+        run: npm run lint
 
       - name: Lint (vue)
         if: matrix.app == 'vue'
-        run: pnpm -F @ss-qa/vue run lint
+        working-directory: apps/vue
+        run: npm run lint
 
       - name: Lint (angular)
         if: matrix.app == 'angular'
-        run: pnpm -F @ss-qa/angular run lint
+        working-directory: apps/angular
+        run: npm run lint
 
       - name: Test (vanilla, with coverage)
         if: matrix.app == 'vanilla'
-        run: pnpm run coverage:vanilla
+        working-directory: apps/vanilla
+        run: npm run coverage
 
       - name: Test (react with coverage)
         if: matrix.app == 'react'
-        run: pnpm -F @ss-qa/react run coverage
+        working-directory: apps/react
+        run: npm run coverage
 
       - name: Test (vue with coverage)
         if: matrix.app == 'vue'
-        run: pnpm -F @ss-qa/vue run coverage
+        working-directory: apps/vue
+        run: npm run coverage
 
       - name: Test (angular)
         if: matrix.app == 'angular'
-        run: pnpm -F @ss-qa/angular run test:ci
+        working-directory: apps/angular
+        run: npm run test:ci
 
       - name: Build app
-        run: pnpm -F @ss-qa/${{ matrix.app }} build
+        working-directory: apps/${{ matrix.app }}
+        run: npm run build
 
       - name: Upload coverage (vanilla)
         if: matrix.app == 'vanilla' && always()
