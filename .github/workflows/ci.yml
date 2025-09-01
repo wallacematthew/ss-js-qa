@@ -38,7 +38,15 @@ jobs:
 
       - name: Install app dependencies
         working-directory: apps/${{ matrix.app }}
-        run: npm ci
+        shell: bash
+        run: |
+          if [ -f package-lock.json ]; then
+            echo "Using npm ci in $(pwd)"
+            npm ci
+          else
+            echo "No package-lock.json found in $(pwd); using npm install"
+            npm install
+          fi
 
       - name: Format check
         run: npm run format:check
